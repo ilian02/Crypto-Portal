@@ -21,7 +21,7 @@ public class Client implements UserDetails {
     private String username;
     private String password;
     private BigDecimal balance = new BigDecimal("10000.00");  // Initial balance
-    private String role;
+    private String role = "USER";
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TransactionHistory> transactionHistoryList;
