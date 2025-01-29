@@ -1,5 +1,6 @@
 package com.iliyan.net.cryptoportal.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -14,6 +15,7 @@ public class TransactionHistory {
 
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
+    @JsonIgnore
     private Client client;
 
     private String cryptoSymbol; // Cryptocurrency symbol (e.g., "BTC", "ETH")
@@ -45,6 +47,7 @@ public class TransactionHistory {
         this.id = id;
     }
 
+    @JsonIgnore
     public Client getUser() {
         return client;
     }

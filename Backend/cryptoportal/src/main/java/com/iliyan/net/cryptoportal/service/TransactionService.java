@@ -145,7 +145,7 @@ public class TransactionService {
         return resp;
     }
 
-    public ReqRes getMyWallet(ReqRes getWalletRequest, String token) {
+    public ReqRes getMyWallet(String token) {
         ReqRes resp = new ReqRes();
         try {
             Optional<Client> user = clientRepository.findByUsername(jwtUtils.extractUsername(token));

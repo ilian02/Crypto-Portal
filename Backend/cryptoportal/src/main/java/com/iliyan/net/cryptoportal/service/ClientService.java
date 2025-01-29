@@ -188,4 +188,23 @@ public class ClientService {
         }
         return resp;
     }
+
+    public ReqRes getMyTransactions(String username) {
+        ReqRes resp = new ReqRes();
+        try {
+            Optional<Client> user = clientRepository.findByUsername(username);
+            if (user.isPresent()) {
+                resp.setTransactions(user.get().getTransactions());
+                resp.setStatusCode(200);
+                resp.setMessage("Successful");
+            } else {
+                resp.setStatusCode(404);
+                resp.setMessage("Client not found for deletion");
+            }
+        } catch (Exception e) {
+            resp.setStatusCode(500);
+            resp.setError(e.getMessage());
+        }
+        return resp;
+    }
 }

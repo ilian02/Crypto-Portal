@@ -30,11 +30,6 @@ public class UserController {
     public ResponseEntity<ReqRes> refreshToken(@RequestBody ReqRes request) {
         return ResponseEntity.ok(clientService.refreshToken(request));
     }
-//
-//    @GetMapping("admin/get-all-users")
-//    public ResponseEntity<ReqRes> getAllUsers() {
-//        return ResponseEntity.ok(clientService.getAllUsers());
-//    }
 
     @GetMapping("/auth/get-user/{userId}")
     public ResponseEntity<ReqRes> getUserById(@PathVariable Long clientId) {
@@ -49,8 +44,16 @@ public class UserController {
     @GetMapping("/auth/profile")
     public ResponseEntity<ReqRes> getMyProfile() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String email = authentication.getName();
-        ReqRes response = clientService.getMyInformation(email);
+        String username = authentication.getName();
+        ReqRes response = clientService.getMyInformation(username);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
+
+    @GetMapping("/auth/transactions")
+    public ResponseEntity<ReqRes> getMyTransactions() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        ReqRes response = clientService.getMyTransactions(username);
         return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
