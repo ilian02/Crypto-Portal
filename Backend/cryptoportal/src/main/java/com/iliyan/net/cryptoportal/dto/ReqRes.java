@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.iliyan.net.cryptoportal.entity.Client;
 import com.iliyan.net.cryptoportal.entity.TransactionHistory;
+import com.iliyan.net.cryptoportal.entity.WalletItem;
 import lombok.Data;
 
 import java.util.List;
@@ -25,5 +26,6 @@ public class ReqRes {
     private List<TransactionHistory> transactions;
     private List<Crypto> cryptos;
     private TransactionRequest transactionRequest;
+    private List<WalletItem> walletItems;
 
 }

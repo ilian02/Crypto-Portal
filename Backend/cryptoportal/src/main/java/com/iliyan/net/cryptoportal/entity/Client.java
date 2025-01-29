@@ -2,6 +2,7 @@ package com.iliyan.net.cryptoportal.entity;
 
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.math.BigDecimal;
@@ -20,12 +21,14 @@ public class Client implements UserDetails {
     private Long id;
     private String username;
     private String password;
-    private BigDecimal balance = new BigDecimal("10000.00");  // Initial balance
+    private double balance = 10000;  // Initial balance
     private String role = "USER";
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<TransactionHistory> transactionHistoryList;
+    private List<WalletItem> walletItems;
 
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TransactionHistory> transactionHistoryList;
 
     public Client() {}
 
@@ -60,7 +63,7 @@ public class Client implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return List.of(new SimpleGrantedAuthority(role));
     }
 
     @Override
@@ -72,12 +75,19 @@ public class Client implements UserDetails {
         this.password = password;
     }
 
-    public BigDecimal getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(BigDecimal balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
+    public List<WalletItem> getWalletItems() {
+        return this.walletItems;
+    }
+
+    public void setWalletItems(List<WalletItem> walletItems) {
+        this.walletItems = walletItems;
+    }
 }
