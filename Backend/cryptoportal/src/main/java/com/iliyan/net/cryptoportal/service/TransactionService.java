@@ -1,5 +1,6 @@
 package com.iliyan.net.cryptoportal.service;
 
+import com.iliyan.net.cryptoportal.dto.Crypto;
 import com.iliyan.net.cryptoportal.dto.ReqRes;
 import com.iliyan.net.cryptoportal.dto.TransactionRequest;
 import com.iliyan.net.cryptoportal.entity.Client;
@@ -9,14 +10,13 @@ import com.iliyan.net.cryptoportal.repository.ClientRepository;
 import com.iliyan.net.cryptoportal.repository.TransactionHistoryRepository;
 import com.iliyan.net.cryptoportal.repository.WalletItemRepository;
 import org.antlr.v4.runtime.Token;
+import org.slf4j.event.KeyValuePair;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TransactionService {
@@ -145,12 +145,10 @@ public class TransactionService {
         return resp;
     }
 
-    public ReqRes getMyWallet(ReqRes getWalletRequest) {
+    public ReqRes getMyWallet(ReqRes getWalletRequest, String token) {
         ReqRes resp = new ReqRes();
         try {
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                getWalletRequest.getUsername(), getWalletRequest.getPassword()));
-            Optional<Client> user = clientRepository.findByUsername(jwtUtils.extractUsername(getWalletRequest.getToken()));
+            Optional<Client> user = clientRepository.findByUsername(jwtUtils.extractUsername(token));
             if (user.isPresent()) {
                 Client client = user.get();
                 List<WalletItem> walletItems = walletItemRepository.findByClientId(client.getId());
@@ -167,5 +165,26 @@ public class TransactionService {
             resp.setError(e.getMessage());
         }
         return resp;
+    }
+
+    public ReqRes getCoinsPrices() {
+        ReqRes resp = new ReqRes();
+        try {
+            Map<String, Double> map = krakenService.getCoinPrices();
+
+            List<Crypto> cryptos = map.entrySet().stream()
+                .map(entry -> new Crypto(entry.getKey(), entry.getValue()))
+                .toList();
+
+            resp.setCryptos(cryptos);
+            resp.setStatusCode(200);
+            resp.setMessage("Coins retrieved successfully");
+        } catch (Exception e) {
+            resp.setStatusCode(500);
+            resp.setError(e.getMessage());
+        }
+        return resp;
+
+
     }
 }

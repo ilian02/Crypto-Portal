@@ -27,5 +27,6 @@ public class ReqRes {
     private List<Crypto> cryptos;
     private TransactionRequest transactionRequest;
     private List<WalletItem> walletItems;
+    private List<WalletDto> wallet;
 
 }

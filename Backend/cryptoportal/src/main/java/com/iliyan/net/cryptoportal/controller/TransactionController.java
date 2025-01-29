@@ -32,7 +32,15 @@ public class TransactionController {
     }
 
     @GetMapping("/coins/wallet")
-    public ResponseEntity<ReqRes> getWallet(@RequestBody ReqRes request) {
-        return ResponseEntity.ok(transactionService.getMyWallet(request));
+    public ResponseEntity<ReqRes> getWallet(@RequestHeader("Authorization") String authHeader, @RequestBody ReqRes request) {
+        String token = authHeader.replace("Bearer ", "");
+        return ResponseEntity.ok(transactionService.getMyWallet(request, token));
     }
+
+    @GetMapping("/public/coins")
+    public ResponseEntity<ReqRes> getCoinPrices() {
+        System.out.println("HEre");
+        return ResponseEntity.ok(transactionService.getCoinsPrices());
+    }
+
 }
