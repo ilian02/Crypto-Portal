@@ -13,9 +13,6 @@ public class KrakenService {
     // private TransactionHistoryService transactionRepository;
 
     @Autowired
-    private ClientService clientService;
-
-    @Autowired
     private KrakenWebSocketService krakenWebSocketService;
 
     public Map<String, Double> getCoinPrices() {
@@ -23,7 +20,6 @@ public class KrakenService {
     }
 
     public Double getPriceOfCoin(String coinSymbol) {
-        System.out.println(krakenWebSocketService.getCryptoPrices());
         return krakenWebSocketService.getCryptoPrices().get(coinSymbol);
     }
 

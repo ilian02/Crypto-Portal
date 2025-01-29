@@ -46,7 +46,6 @@ public class TransactionService {
             if (user.isPresent()) {
                 Client client = user.get();
                 TransactionRequest transactionReq = transactionBuyRequest.getTransactionRequest();
-                System.out.println(transactionReq.getCryptoSymbol());
                 if (!krakenService.getCoinPrices().containsKey(transactionReq.getCryptoSymbol())) {
                     resp.setStatusCode(500);
                     resp.setTransactionRequest(transactionReq);
@@ -64,7 +63,7 @@ public class TransactionService {
                     resp.setStatusCode(200);
                     resp.setTransactionRequest(transactionReq);
                     resp.setMessage("Transaction done");
-                } else if (priceToPay <= 0) {
+                } else if (priceToPay > client.getBalance()) {
                     resp.setStatusCode(500);
                     resp.setTransactionRequest(transactionReq);
                     resp.setError("Balance is not enough for the transaction");
@@ -120,8 +119,14 @@ public class TransactionService {
                     WalletItem walletItem = walletOfCoin.get();
                     if (walletItem.getQuantity() >= transactionReq.getQuantity()) {
                         walletItem.setQuantity(walletItem.getQuantity() - transactionReq.getQuantity());
-                        walletItemRepository.save(walletItem);
+                        if (walletItem.getQuantity() == 0) {
+                            walletItemRepository.delete(walletItem);
+                        } else {
+                            walletItemRepository.save(walletItem);
+                        }
                         createTransaction(transactionReq, client, priceToGet, "sell");
+                        client.setBalance(client.getBalance() + priceToGet);
+                        clientRepository.save(client);
 
                         resp.setStatusCode(200);
                         resp.setTransactionRequest(transactionReq);

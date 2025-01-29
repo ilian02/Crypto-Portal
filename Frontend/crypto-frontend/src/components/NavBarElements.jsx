@@ -1,10 +1,18 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import AuthContext from '../context/AuthContext';
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
 
     const { user, logout } = useContext(AuthContext);
+
+    const navigate = useNavigate();
+
+    const callLogOut = async () => {
+        logout()
+        navigate('/');
+    }
 
     return (
         <nav style={navbarStyles}>
@@ -15,7 +23,7 @@ const Navbar = () => {
                     <>
                         <li style={listItemStyles}><Link style={linkStyles} to="/wallet">Wallet</Link></li>
                         <li style={listItemStyles}><Link style={linkStyles} to="/transactions">Transactions</Link></li>
-                        <li onClick={logout} style={linkStyles}>Logout<Link style={linkStyles} to="/"></Link></li>
+                        <li onClick={callLogOut} style={linkStyles}>Logout</li>
                     </>  
                 ) : (
                     <>

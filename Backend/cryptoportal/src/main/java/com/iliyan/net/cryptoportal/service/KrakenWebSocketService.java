@@ -92,8 +92,7 @@ public class KrakenWebSocketService {
                     String pair = pairNode.asText();
                     double price = tickerData.get("c").get(0).asDouble();
 
-                    cryptoPrices.put(pair, price);
-                    // System.out.println("Updated price for " + pair + ": " + price);
+                    cryptoPrices.put(pair.substring(0, pair.length() - 4), price);
                 }
             }
         } catch (Exception e) {

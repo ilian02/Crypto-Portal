@@ -2,13 +2,18 @@ package com.iliyan.net.cryptoportal.service;
 
 import com.iliyan.net.cryptoportal.dto.ReqRes;
 import com.iliyan.net.cryptoportal.entity.Client;
+import com.iliyan.net.cryptoportal.entity.TransactionHistory;
+import com.iliyan.net.cryptoportal.entity.WalletItem;
 import com.iliyan.net.cryptoportal.repository.ClientRepository;
+import com.iliyan.net.cryptoportal.repository.TransactionHistoryRepository;
+import com.iliyan.net.cryptoportal.repository.WalletItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -27,6 +32,12 @@ public class ClientService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private TransactionHistoryRepository transactionHistoryRepository;
+
+    @Autowired
+    private WalletItemRepository walletItemRepository;
 
 
     public ReqRes register(ReqRes registrationRequest) {
@@ -200,6 +211,31 @@ public class ClientService {
             } else {
                 resp.setStatusCode(404);
                 resp.setMessage("Client not found for deletion");
+            }
+        } catch (Exception e) {
+            resp.setStatusCode(500);
+            resp.setError(e.getMessage());
+        }
+        return resp;
+    }
+
+    public ReqRes resetMyAccount(String username) {
+        ReqRes resp = new ReqRes();
+        try {
+            Optional<Client> user = clientRepository.findByUsername(username);
+            if (user.isPresent()) {
+                Client client = user.get();
+                client.setBalance(10000);
+
+                client.getTransactions().clear();
+                client.getWalletItems().clear();
+                clientRepository.save(client);
+
+                resp.setStatusCode(200);
+                resp.setMessage("Successful");
+            } else {
+                resp.setStatusCode(404);
+                resp.setMessage("Client to be reset not found");
             }
         } catch (Exception e) {
             resp.setStatusCode(500);

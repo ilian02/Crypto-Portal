@@ -22,13 +22,17 @@ public class TransactionController {
     @PostMapping("/coins/buy")
     public ResponseEntity<ReqRes> buyCoins(@RequestHeader("Authorization") String authHeader, @RequestBody ReqRes request) {
         String token = authHeader.replace("Bearer ", "");
-        return ResponseEntity.ok(transactionService.createBuyTransaction(request, token));
+        ReqRes response = transactionService.createBuyTransaction(request, token);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
     @PostMapping("/coins/sell")
     public ResponseEntity<ReqRes> sellCoins(@RequestHeader("Authorization") String authHeader, @RequestBody ReqRes request) {
+        System.out.println("Here");
+        System.out.println(request.getTransactionRequest().getCryptoSymbol());
         String token = authHeader.replace("Bearer ", "");
-        return ResponseEntity.ok(transactionService.createSellTransaction(request, token));
+        ReqRes response = transactionService.createSellTransaction(request, token);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
     @GetMapping("/coins/wallet")

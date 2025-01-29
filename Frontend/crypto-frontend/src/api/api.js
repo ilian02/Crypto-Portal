@@ -37,3 +37,46 @@ export const getMyProfile = async (token) => {
     });
     return response.data;
 };
+
+export const sellCoins = async (cryptoSymbol, quantity) => {
+    try {
+    const response = await api.post("/coins/sell", {
+        transactionRequest: {
+            cryptoSymbol: cryptoSymbol,
+            quantity: quantity
+        }
+    },{
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+    })
+    return response.data;
+    } catch (error) {
+        throw error.response ? error.response.data : new Error("Server error")
+    }
+}
+
+export const buyCoins = async (cryptoSymbol, quantity) => {
+    try {
+    const response = await api.post("/coins/buy", {
+        transactionRequest: {
+            cryptoSymbol: cryptoSymbol,
+            quantity: quantity
+        }
+    },{
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+    })
+    return response.data;
+    } catch (error) {
+        throw error.response ? error.response.data : new Error("Server error")
+    }
+}
+
+export const resetProfile = async () => {
+    try {
+    const response = await api.delete("/auth/reset-user",{
+        headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+    })
+    return response.data;
+    } catch (error) {
+        throw error.response ? error.response.data : new Error("Server error")
+    }
+}

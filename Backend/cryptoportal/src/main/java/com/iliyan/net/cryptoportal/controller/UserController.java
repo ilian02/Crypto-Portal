@@ -61,4 +61,12 @@ public class UserController {
     public ResponseEntity<ReqRes> deleteUserById(@PathVariable Long clientId) {
         return ResponseEntity.ok(clientService.deleteUserById(clientId));
     }
+
+    @DeleteMapping("/auth/reset-user")
+    public ResponseEntity<ReqRes> resetUserAccount() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        ReqRes response = clientService.resetMyAccount(username);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
+    }
 }

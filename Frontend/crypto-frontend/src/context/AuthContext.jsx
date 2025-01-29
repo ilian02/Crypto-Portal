@@ -18,8 +18,6 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("token", token);
         const decoded = jwtDecode(token);
         setUser(decoded);
-        console.log(token)
-        console.log(decoded)
     };
 
     const logout = () => {

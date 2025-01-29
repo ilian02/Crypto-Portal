@@ -1,0 +1,103 @@
+.container {
+    display: flex;
+    margin: 0 auto;
+    min-width: 300px;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.coin_container {
+    padding: 20px;
+    width: 500px;
+    padding: 15px;
+}
+
+.wallet_container {
+    padding: 30px;
+    width: 500px;
+}
+
+.wallet_container table {
+    border-collapse: separate;
+}
+
+tr {
+    text-align: right;
+}
+
+th {
+    padding: 15px 30px;
+    text-align: center;
+    font-size: 16px;
+}
+
+h2 {
+    text-align: center;
+}
+
+input {
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    width: 100%;
+    max-width: 100px;
+    outline: none;
+    margin-left: 25px;
+}
+
+.login_form {
+    display: block;
+}
+
+.table-container {
+    margin: 0 auto;
+    min-width: 300px;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+  
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+  
+.styled-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 18px;
+}
+  
+.styled-table thead {
+    background-color: #5a5a5a;
+    color: white;
+}
+  
+.styled-table th, .styled-table td {
+    padding: 12px;
+    text-align: left;
+}
+  
+.styled-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+  
+.styled-table tr:hover {
+    background-color: #ddd;
+}
+  
+.styled-table th {
+    font-weight: bold;
+}
+  
+.styled-table td {
+    font-weight: normal;
+}
