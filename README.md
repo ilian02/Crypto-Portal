@@ -40,3 +40,7 @@ In ..\Crypto-Portal\Frontend\crypto-frontend
   <source src="docs/Video/video.mkv.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
+
+### Scheme
+
+![alt text](docs/images/scheme.png)
