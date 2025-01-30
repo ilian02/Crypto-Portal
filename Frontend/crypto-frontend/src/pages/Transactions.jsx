@@ -46,7 +46,7 @@ const Transactions = () => {
 
         fetchCoinPrices();
         fetchUserInfo();
-    }, [user, coinsInfo]);
+    }, [userInfo, coinsInfo]);
 
     return (
         <div className="table-container">

@@ -61,7 +61,7 @@ public class KrakenWebSocketService {
                 "BTC/USD", "ETH/USD", "XRP/USD", "ADA/USD", "SOL/USD", "DOT/USD",
                 "DOGE/USD", "LTC/USD", "SHIB/USD", "MATIC/USD", "BNB/USD", "AVAX/USD",
                 "UNI/USD", "LINK/USD", "ATOM/USD", "XMR/USD", "BCH/USD", "ALGO/USD",
-                "ICP/USD", "FIL/USD"
+                "ICP/USD", "FIL/USD", "C98/USD"
             };
 
             String payload = objectMapper.writeValueAsString(new Object() {

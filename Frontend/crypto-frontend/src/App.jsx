@@ -9,6 +9,7 @@ import Navbar from "./components/NavBarElements";
 import Transactions from "./pages/Transactions";
 
 const App = () => {
+    document.title = "Crypto Portal"
     return (
         <AuthProvider>
             <Router>

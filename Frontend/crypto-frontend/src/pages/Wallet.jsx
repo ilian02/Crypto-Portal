@@ -40,26 +40,27 @@ const Wallet = () => {
             setError("");
             const resp = await resetProfile();
             alert("Profile reset successfully!");
-            fetchUserInfo();
         } catch (err) {
             setError(err);
         }
     };
 
-    const fetchUserInfo = async () => {
-        if (user) {
-            const data = await getMyProfile(localStorage.getItem("token"));
-            setUserInfo(data.client)
-        }
-    }
-
-    const fetchCoinPrices = async () => {
-        const data = await getCoinPrices();
-        setCoinPrices(data.cryptos);
-    };
-
 
     useEffect(() => {
+
+        const fetchUserInfo = async () => {
+            if (user) {
+                const data = await getMyProfile(localStorage.getItem("token"));
+                setUserInfo(data.client)
+            }
+        }
+    
+        const fetchCoinPrices = async () => {
+            const data = await getCoinPrices();
+            setCoinPrices(data.cryptos);
+        };
+
+
         fetchCoinPrices();
         fetchUserInfo();
     }, [userInfo, coinsInfo]);

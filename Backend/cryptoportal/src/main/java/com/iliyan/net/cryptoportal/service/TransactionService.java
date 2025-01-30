@@ -50,6 +50,7 @@ public class TransactionService {
                     resp.setStatusCode(500);
                     resp.setTransactionRequest(transactionReq);
                     resp.setError("Coin symbols not found");
+                    return resp;
                 }
                 final double priceToPay = transactionReq.getQuantity() * krakenService.getPriceOfCoin(transactionReq.getCryptoSymbol());
                 if (client.getBalance() > priceToPay
