@@ -62,7 +62,7 @@ const Wallet = () => {
     useEffect(() => {
         fetchCoinPrices();
         fetchUserInfo();
-    }, [user, userInfo, coinsInfo]);
+    }, [userInfo, coinsInfo]);
 
     return (
         <>

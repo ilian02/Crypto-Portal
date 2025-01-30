@@ -18,12 +18,14 @@ public class UserController {
 
     @PostMapping("/auth/register")
     public ResponseEntity<ReqRes> register(@RequestBody ReqRes request) {
-        return ResponseEntity.ok(clientService.register(request));
+        ReqRes response = clientService.register(request);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
     @PostMapping("/auth/login")
     public ResponseEntity<ReqRes> login(@RequestBody ReqRes request) {
-        return ResponseEntity.ok(clientService.login(request));
+        ReqRes response = clientService.login(request);
+        return ResponseEntity.status(response.getStatusCode()).body(response);
     }
 
     @PostMapping("/auth/refresh")

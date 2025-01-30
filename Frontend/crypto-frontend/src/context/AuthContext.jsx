@@ -9,8 +9,12 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         const token = localStorage.getItem("token");
         if (token) {
+            try {
             const decoded = jwtDecode(token);
             setUser(decoded);
+            } catch (err) {
+                console.log("Error decoding token")
+            }
         }
     }, []);
 

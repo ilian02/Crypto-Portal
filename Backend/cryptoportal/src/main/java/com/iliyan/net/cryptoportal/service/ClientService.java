@@ -43,6 +43,12 @@ public class ClientService {
     public ReqRes register(ReqRes registrationRequest) {
         ReqRes resp = new ReqRes();
 
+        if (registrationRequest.getUsername().length() < 5 || registrationRequest.getPassword().length() < 5) {
+            resp.setStatusCode(401);
+            resp.setError("Username and password must be at least 6 symbols");
+            return resp;
+        }
+
         try {
             Client user = new Client();
             user.setUsername(registrationRequest.getUsername());
@@ -88,7 +94,7 @@ public class ClientService {
             resp.setMessage("Client logged in successfully");
 
         } catch (Exception e) {
-            resp.setStatusCode(500);
+            resp.setStatusCode(402);
             resp.setError(e.getMessage());
         }
         return resp;

@@ -20,7 +20,7 @@ const Register = () => {
             login(data.token);
             navigate('/wallet')
         } catch (err) {
-            setError("Invalid credentials");
+            setError(err.response.data.error);
         }
     };
 

@@ -10,13 +10,22 @@ export const api = axios.create({
 });
 
 export const loginUser = async (credentials) => {
-    const response = await api.post("/auth/login", credentials);
-    return response.data;
+    try {
+        const response = await api.post("/auth/login", credentials);
+        return response.data;
+    } catch (err) {
+        throw err
+    }
 };
 
 export const registerUser = async (userData) => {
-    const response = await api.post("/auth/register", userData);
-    return response.data;
+    try {
+        const response = await api.post("/auth/register", userData);
+        return response.data;
+    } catch (err) {
+        throw err
+    }
+    
 };
 
 export const getCoinPrices = async () => {
